@@ -1,0 +1,39 @@
+{
+  "seed": 2569,
+  "fx_inr_per_usd": 76.0,
+  "scale_asp_threshold_usd": 120.0,
+  "p1_rows_nonblank": 9648,
+  "p1_rows_scale_defect": 3876,
+  "oms_files": {
+    "oms_sales_2022.csv": 10441,
+    "oms_sales_2023.csv": 11658,
+    "oms_sales_2024.csv": 11741
+  },
+  "oms_clean_lines": 33638,
+  "oms_sale_lines": 27896,
+  "oms_return_lines": 5742,
+  "inventory_rows": 96382,
+  "geography_members": 54,
+  "holiday_dates": 137,
+  "promotions": 24,
+  "retailer_versions": 10,
+  "product_versions": 1241,
+  "anomalies": {
+    "A01_DUPLICATE_LINE": 202,
+    "A02_CHANNEL_FORMAT": 1009,
+    "A03_CHANNEL_NULL": 336,
+    "A04_STATE_CODE": 1346,
+    "A05_CITY_FORMAT": 1009,
+    "A06_PRODUCT_ID_FORMAT": 673,
+    "A07_PRODUCT_UNKNOWN": 67,
+    "A08_MARGIN_NULL": 336,
+    "A09_PRICE_IN_CENTS": 101,
+    "A10_DATE_OUT_OF_RANGE": 34,
+    "A12_RETAILER_UNKNOWN": 34,
+    "A13_CITY_NULL": 101,
+    "A14_DATE_FORMAT": 673,
+    "W01_NEGATIVE_ON_HAND": 192,
+    "W02_SKU_CASE": 960,
+    "W03_DUPLICATE_SNAPSHOT": 288
+  }
+}

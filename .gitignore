@@ -1,0 +1,17 @@
+# Tableau extracts and packaged files (data lives in data/ as CSV/XLSX)
+*.hyper
+*.twbx
+*.tflx
+*.bak
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# OS and Office temp files
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*

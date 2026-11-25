@@ -1,0 +1,55 @@
+geo_code,city,state_name,state_code,sales_region,census_region,census_division,time_zone,city_tier,is_dtc_flagship_market
+AL-BIRMINGHAM,Birmingham,Alabama,AL,South,South,East South Central,Central,Tier 2 - Mid Market,N
+AK-ANCHORAGE,Anchorage,Alaska,AK,West,West,Pacific,Alaska,Tier 3 - Small Market,N
+AZ-PHOENIX,Phoenix,Arizona,AZ,West,West,Mountain,Mountain (no DST),Tier 1 - Major Metro,N
+AR-LITTLEROCK,Little Rock,Arkansas,AR,South,South,West South Central,Central,Tier 3 - Small Market,N
+CA-LOSANGELES,Los Angeles,California,CA,West,West,Pacific,Pacific,Tier 1 - Major Metro,Y
+CA-SANFRANCISCO,San Francisco,California,CA,West,West,Pacific,Pacific,Tier 1 - Major Metro,Y
+CO-DENVER,Denver,Colorado,CO,West,West,Mountain,Mountain,Tier 2 - Mid Market,Y
+CT-HARTFORD,Hartford,Connecticut,CT,Northeast,Northeast,New England,Eastern,Tier 2 - Mid Market,N
+DE-WILMINGTON,Wilmington,Delaware,DE,Northeast,South,South Atlantic,Eastern,Tier 3 - Small Market,N
+FL-MIAMI,Miami,Florida,FL,Southeast,South,South Atlantic,Eastern,Tier 1 - Major Metro,Y
+FL-ORLANDO,Orlando,Florida,FL,Southeast,South,South Atlantic,Eastern,Tier 2 - Mid Market,N
+GA-ATLANTA,Atlanta,Georgia,GA,Southeast,South,South Atlantic,Eastern,Tier 1 - Major Metro,Y
+HI-HONOLULU,Honolulu,Hawaii,HI,West,West,Pacific,Hawaii,Tier 2 - Mid Market,N
+ID-BOISE,Boise,Idaho,ID,West,West,Mountain,Mountain,Tier 3 - Small Market,N
+IL-CHICAGO,Chicago,Illinois,IL,Midwest,Midwest,East North Central,Central,Tier 1 - Major Metro,Y
+IN-INDIANAPOLIS,Indianapolis,Indiana,IN,Midwest,Midwest,East North Central,Eastern,Tier 2 - Mid Market,N
+IA-DESMOINES,Des Moines,Iowa,IA,Midwest,Midwest,West North Central,Central,Tier 3 - Small Market,N
+KS-WICHITA,Wichita,Kansas,KS,Midwest,Midwest,West North Central,Central,Tier 3 - Small Market,N
+KY-LOUISVILLE,Louisville,Kentucky,KY,Southeast,South,East South Central,Eastern,Tier 2 - Mid Market,N
+LA-NEWORLEANS,New Orleans,Louisiana,LA,South,South,West South Central,Central,Tier 2 - Mid Market,N
+ME-PORTLAND,Portland,Maine,ME,Northeast,Northeast,New England,Eastern,Tier 2 - Mid Market,N
+MD-BALTIMORE,Baltimore,Maryland,MD,Northeast,South,South Atlantic,Eastern,Tier 2 - Mid Market,N
+MA-BOSTON,Boston,Massachusetts,MA,Northeast,Northeast,New England,Eastern,Tier 1 - Major Metro,Y
+MI-DETROIT,Detroit,Michigan,MI,Midwest,Midwest,East North Central,Eastern,Tier 2 - Mid Market,N
+MN-MINNEAPOLIS,Minneapolis,Minnesota,MN,Midwest,Midwest,West North Central,Central,Tier 2 - Mid Market,N
+MS-JACKSON,Jackson,Mississippi,MS,South,South,East South Central,Central,Tier 3 - Small Market,N
+MO-STLOUIS,St. Louis,Missouri,MO,Midwest,Midwest,West North Central,Central,Tier 2 - Mid Market,N
+MT-BILLINGS,Billings,Montana,MT,Midwest,West,Mountain,Mountain,Tier 3 - Small Market,N
+NE-OMAHA,Omaha,Nebraska,NE,Midwest,Midwest,West North Central,Central,Tier 2 - Mid Market,N
+NV-LASVEGAS,Las Vegas,Nevada,NV,West,West,Mountain,Pacific,Tier 2 - Mid Market,Y
+NH-MANCHESTER,Manchester,New Hampshire,NH,Northeast,Northeast,New England,Eastern,Tier 3 - Small Market,N
+NJ-NEWARK,Newark,New Jersey,NJ,Northeast,Northeast,Middle Atlantic,Eastern,Tier 2 - Mid Market,N
+NM-ALBUQUERQUE,Albuquerque,New Mexico,NM,West,West,Mountain,Mountain,Tier 2 - Mid Market,N
+NY-ALBANY,Albany,New York,NY,Northeast,Northeast,Middle Atlantic,Eastern,Tier 3 - Small Market,N
+NY-NEWYORK,New York,New York,NY,Northeast,Northeast,Middle Atlantic,Eastern,Tier 1 - Major Metro,Y
+NC-CHARLOTTE,Charlotte,North Carolina,NC,Southeast,South,South Atlantic,Eastern,Tier 2 - Mid Market,N
+ND-FARGO,Fargo,North Dakota,ND,Midwest,Midwest,West North Central,Central,Tier 3 - Small Market,N
+OH-COLUMBUS,Columbus,Ohio,OH,Midwest,Midwest,East North Central,Eastern,Tier 2 - Mid Market,N
+OK-OKLAHOMACITY,Oklahoma City,Oklahoma,OK,South,South,West South Central,Central,Tier 2 - Mid Market,N
+OR-PORTLAND,Portland,Oregon,OR,West,West,Pacific,Pacific,Tier 2 - Mid Market,N
+PA-PHILADELPHIA,Philadelphia,Pennsylvania,PA,Northeast,Northeast,Middle Atlantic,Eastern,Tier 1 - Major Metro,N
+RI-PROVIDENCE,Providence,Rhode Island,RI,Northeast,Northeast,New England,Eastern,Tier 2 - Mid Market,N
+SC-CHARLESTON,Charleston,South Carolina,SC,Southeast,South,South Atlantic,Eastern,Tier 3 - Small Market,N
+SD-SIOUXFALLS,Sioux Falls,South Dakota,SD,Midwest,Midwest,West North Central,Central,Tier 3 - Small Market,N
+TN-KNOXVILLE,Knoxville,Tennessee,TN,South,South,East South Central,Eastern,Tier 2 - Mid Market,N
+TX-DALLAS,Dallas,Texas,TX,South,South,West South Central,Central,Tier 1 - Major Metro,Y
+TX-HOUSTON,Houston,Texas,TX,South,South,West South Central,Central,Tier 1 - Major Metro,Y
+UT-SALTLAKECITY,Salt Lake City,Utah,UT,West,West,Mountain,Mountain,Tier 2 - Mid Market,N
+VT-BURLINGTON,Burlington,Vermont,VT,Northeast,Northeast,New England,Eastern,Tier 3 - Small Market,N
+VA-RICHMOND,Richmond,Virginia,VA,Southeast,South,South Atlantic,Eastern,Tier 2 - Mid Market,N
+WA-SEATTLE,Seattle,Washington,WA,West,West,Pacific,Pacific,Tier 1 - Major Metro,Y
+WV-CHARLESTON,Charleston,West Virginia,WV,Northeast,South,South Atlantic,Eastern,Tier 3 - Small Market,N
+WI-MILWAUKEE,Milwaukee,Wisconsin,WI,Midwest,Midwest,East North Central,Central,Tier 2 - Mid Market,N
+WY-CHEYENNE,Cheyenne,Wyoming,WY,West,West,Mountain,Mountain,Tier 3 - Small Market,N

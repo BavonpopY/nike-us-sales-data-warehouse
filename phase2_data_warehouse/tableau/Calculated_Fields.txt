@@ -1,0 +1,247 @@
+2603389_2569_P2_G6 - Tableau calculated fields (copy: Field Name -> Analysis > Create Calculated Field)
+Order matters: create from top to bottom. Data source shown in [brackets].
+
+========== [NikeUS Sales] ==========
+--- K1 Net Sales
+SUM([Net Sales Amount])
+
+--- K2 Operating Profit
+SUM([Operating Profit])
+
+--- K3 Operating Margin %
+SUM([Operating Profit]) / SUM([Net Sales Amount])
+
+--- K5 DTC Share
+SUM(IF [Ownership Type] = 'Nike-Owned' THEN [Net Sales Amount] END) / SUM([Net Sales Amount])
+
+--- K6 ASP
+SUM([Gross Sales Amount]) / SUM([Units Sold])
+
+--- K8 Promo Discount Rate
+SUM([Promo Discount Amount]) / SUM([Gross Sales Amount])
+
+--- K10 Unit Return Rate
+SUM([Units Returned]) / SUM([Units Sold])
+
+--- K11 Return Leakage
+SUM([Return Amount]) / SUM([Gross Sales Amount])
+
+--- K17 DQ Correction Rate
+COUNT([DQ Issue Codes]) / COUNT([Sales Line Key])
+
+--- Channel Display
+IF [Ownership Type] = 'Nike-Owned' THEN 'Nike Direct' ELSE [Channel Name] END
+
+--- Ownership Group
+IF [Ownership Type] = 'Nike-Owned' THEN 'Nike Direct (DTC)'
+ELSEIF [Ownership Type] = 'Wholesale Partner' THEN 'Wholesale' ELSE 'Unknown' END
+
+--- Is Selected FY
+[Fiscal Year] = [p Fiscal Year]
+
+--- Net Sales CY
+SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Net Sales Amount] END)
+
+--- Net Sales PY
+SUM(IF [Fiscal Year] = [p Fiscal Year] - 1 THEN [Net Sales Amount] END)
+
+--- YoY % (param)
+([Net Sales CY] - [Net Sales PY]) / [Net Sales PY]
+
+--- Profit CY
+SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Operating Profit] END)
+
+--- Profit PY
+SUM(IF [Fiscal Year] = [p Fiscal Year] - 1 THEN [Operating Profit] END)
+
+--- Margin CY
+[Profit CY] / [Net Sales CY]
+
+--- DTC Share CY
+SUM(IF [Fiscal Year] = [p Fiscal Year] AND [Ownership Type] = 'Nike-Owned'
+THEN [Net Sales Amount] END) / [Net Sales CY]
+
+--- Return Rate CY
+SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Units Returned] END)
+/ SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Units Sold] END)
+
+--- FY Start (As Of)
+MAKEDATE(IF MONTH([p As Of Date]) >= 6 THEN YEAR([p As Of Date]) ELSE YEAR([p As Of Date]) - 1 END, 6, 1)
+
+--- Is FYTD
+[Full Date] >= [FY Start (As Of)] AND [Full Date] <= [p As Of Date]
+
+--- Is PY FYTD
+[Full Date] >= DATEADD('year', -1, [FY Start (As Of)])
+AND [Full Date] <= DATEADD('year', -1, [p As Of Date])
+
+--- Net Sales FYTD
+SUM(IF [Is FYTD] THEN [Net Sales Amount] END)
+
+--- Net Sales PY FYTD
+SUM(IF [Is PY FYTD] THEN [Net Sales Amount] END)
+
+--- YoY % FYTD
+([Net Sales FYTD] - [Net Sales PY FYTD]) / [Net Sales PY FYTD]
+
+--- Is MTD
+DATETRUNC('month', [Full Date]) = DATETRUNC('month', [p As Of Date]) AND [Full Date] <= [p As Of Date]
+
+--- Is PY MTD
+DATETRUNC('month', [Full Date]) = DATEADD('year', -1, DATETRUNC('month', [p As Of Date]))
+AND [Full Date] <= DATEADD('year', -1, [p As Of Date])
+
+--- MTD Pace %
+SUM(IF [Is MTD] THEN [Net Sales Amount] END) / SUM(IF [Is PY MTD] THEN [Net Sales Amount] END) - 1
+
+--- Profit Delta (CY-PY)
+[Profit CY] - [Profit PY]
+
+--- DTC Launch Date
+#2022-06-01#
+
+--- Franchise Net Sales CY
+{FIXED [Franchise] : SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Net Sales Amount] END)}
+
+--- Franchise Net Sales PY
+{FIXED [Franchise] : SUM(IF [Fiscal Year] = [p Fiscal Year] - 1 THEN [Net Sales Amount] END)}
+
+--- Franchise Profit CY
+{FIXED [Franchise] : SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Operating Profit] END)}
+
+--- Franchise Growth FY
+[Franchise Net Sales CY] / [Franchise Net Sales PY] - 1
+
+--- Franchise Margin
+[Franchise Profit CY] / [Franchise Net Sales CY]
+
+--- Portfolio Avg Margin
+{FIXED : SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Operating Profit] END)}
+/ {FIXED : SUM(IF [Fiscal Year] = [p Fiscal Year] THEN [Net Sales Amount] END)}
+
+--- Quadrant
+IF [Franchise Growth FY] >= 0 AND [Franchise Margin] >= [Portfolio Avg Margin] THEN 'Scale up'
+ELSEIF [Franchise Growth FY] < 0 AND [Franchise Margin] >= [Portfolio Avg Margin] THEN 'Protect margin'
+ELSEIF [Franchise Growth FY] >= 0 THEN 'Fix profitability'
+ELSE 'Review / exit' END
+
+--- Had FY23 Increase
+{FIXED [Product ID] : MAX(IF STARTSWITH([Row Change Reason], 'FY23') THEN 1 ELSE 0 END)}
+
+--- Price Group
+IF [Had FY23 Increase] = 1 THEN 'With FY23 price increase' ELSE 'No FY23 increase' END
+
+--- Baseline Units per Line
+{FIXED [Channel Name], [Year Month] :
+AVG(IF [Promotion Key] = 0 AND [Line Type] = 'SALE' THEN [Units Sold] END)}
+
+--- Promo Line Uplift
+IF [Promotion Key] > 0 AND [Line Type] = 'SALE' THEN [Units Sold] / [Baseline Units per Line] - 1 END
+
+--- K9 Promo Unit Uplift %
+AVG([Promo Line Uplift])
+
+--- No-Promo Margin (Channel)
+{FIXED [Channel Name] : SUM(IF [Promotion Key] = 0 THEN [Operating Profit] END)
+/ SUM(IF [Promotion Key] = 0 THEN [Net Sales Amount] END)}
+
+--- Margin Gap vs Baseline
+[K3 Operating Margin %] - AVG([No-Promo Margin (Channel)])
+
+--- Profit PY Total
+{FIXED : SUM(IF [Fiscal Year] = [p Fiscal Year] - 1 THEN [Operating Profit] END)}
+
+--- YoY Growth % (TC)
+(ZN(SUM([Net Sales Amount])) - LOOKUP(ZN(SUM([Net Sales Amount])), -1))
+/ ABS(LOOKUP(ZN(SUM([Net Sales Amount])), -1))
+
+--- Waterfall Running
+RUNNING_SUM([Profit Delta (CY-PY)]) + MIN([Profit PY Total])
+
+--- Waterfall Size
+-[Profit Delta (CY-PY)]
+
+--- Sim Units Factor
+1 + [p Elasticity] * [p Price Change %]
+
+--- Sim Operating Profit
+([Profit CY] + [Net Sales CY] * [p Price Change %]) * [Sim Units Factor]
+
+--- Profit Gap
+[Sim Operating Profit] - [Profit CY]
+
+--- ASP FY22
+SUM(IF [Fiscal Year] = 2022 THEN [Gross Sales Amount] END) / SUM(IF [Fiscal Year] = 2022 THEN [Units Sold] END)
+
+--- ASP FY23
+SUM(IF [Fiscal Year] = 2023 THEN [Gross Sales Amount] END) / SUM(IF [Fiscal Year] = 2023 THEN [Units Sold] END)
+
+--- ASP Change %
+[ASP FY23] / [ASP FY22] - 1
+
+--- Units Change %
+SUM(IF [Fiscal Year] = 2023 THEN [Units Sold] END) / SUM(IF [Fiscal Year] = 2022 THEN [Units Sold] END) - 1
+
+--- Retail Event Label
+IF INT([Is Retail Event]) = 1 THEN '★' ELSE '' END
+
+
+========== [NikeUS Inventory] ==========
+--- Inv FY End Date
+{FIXED [Fiscal Year] : MAX(IF NOT ISNULL([Units On Hand]) THEN [Full Date] END)}
+
+--- Is FY End
+[Full Date] = [Inv FY End Date]
+
+--- K12 Ending On-Hand
+SUM(IF [Is FY End] THEN [Units On Hand] END)
+
+--- K13 Ending Value
+SUM(IF [Is FY End] THEN [Inventory Value Cost] END)
+
+--- Weeks in FY
+COUNTD(IF NOT ISNULL([Units On Hand]) THEN [Full Date] END) * 4.345
+
+--- K14 Weeks of Supply
+[K12 Ending On-Hand] / (SUM([Units Shipped]) / [Weeks in FY])
+
+--- K15 Sell-Through %
+SUM([Units Shipped]) / ([K12 Ending On-Hand] + SUM([Units Shipped]))
+
+--- K16 Stock-out Days
+SUM([Stockout Days])
+
+--- Is Selected Month
+DATETRUNC('month', [Full Date]) = DATETRUNC('month', [p As Of Date])
+
+--- Row Sell-Through
+[Units Shipped] / ([Units On Hand] + [Units Shipped])
+
+--- Stock Status
+IF ISNULL([Weeks Of Supply]) THEN 'No movement'
+ELSEIF [Weeks Of Supply] < [p WOS Low] THEN 'Stock-out risk'
+ELSEIF [Weeks Of Supply] > [p WOS High] THEN 'Overstock'
+ELSE 'Healthy' END
+
+--- Glut Start
+#2022-06-01#
+
+--- Glut End
+#2023-08-31#
+
+--- EOL Rank
+RANK(SUM([Inventory Value Cost]), 'desc')
+
+========== [NikeUS Sales] extra for DB2_Partner_Tier_Timeline ==========
+--- Version End Capped
+IF [Effective End Date (Dim Retailer)] > #2024-12-31# THEN #2024-12-31# ELSE [Effective End Date (Dim Retailer)] END
+
+--- Version Days
+DATEDIFF('day', [Effective Start Date (Dim Retailer)], [Version End Capped]) + 1
+
+--- Behind Pace
+[MTD Pace %] < -0.10
+
+========== [NikeUS Inventory] extra ==========
+--- Is Selected FY (Inv)
+[Fiscal Year] = [p Fiscal Year]
